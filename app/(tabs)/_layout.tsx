@@ -1,45 +1,65 @@
+import imagepath from '@/src/constants/imagePath';
+import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { Tabs } from 'expo-router';
-import React from 'react';
-import { Platform } from 'react-native';
-
-import { HapticTab } from '@/components/HapticTab';
-import { IconSymbol } from '@/components/ui/IconSymbol';
-import TabBarBackground from '@/components/ui/TabBarBackground';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
+import { Image } from 'react-native';
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
-
   return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-        tabBarButton: HapticTab,
-        tabBarBackground: TabBarBackground,
-        tabBarStyle: Platform.select({
-          ios: {
-            // Use a transparent background on iOS to show the blur effect
-            position: 'absolute',
-          },
-          default: {},
-        }),
-      }}>
+    <Tabs screenOptions={{ tabBarActiveTintColor: 'blue',headerShown:false }}>
       <Tabs.Screen
         name="index"
         options={{
           title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
+          tabBarIcon: ({ color }) => <FontAwesome size={28} name="home" color={color} />,
         }}
       />
       <Tabs.Screen
-        name="explore"
+        name="productList"
         options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+          title: 'ProductList',
+          tabBarIcon: ({ color }) => <FontAwesome size={28} name="list" color={color} />,
         }}
       />
+        <Tabs.Screen
+  name="favourite"
+  options={{
+    title: "Favourite",
+    tabBarIcon: ({ focused }) => (
+      <Image
+        source={imagepath.favourite}
+        style={{
+          width: 28,
+          height: 28,
+          tintColor: focused ? "blue" : "gray",
+        }}
+      />
+    ),
+  }}
+/>
+       <Tabs.Screen
+        name="notification"
+        options={{
+          title: 'Notifications',
+          tabBarIcon: ({ color }) => <FontAwesome size={28} name="bell" color={color} />,
+        }}
+      />
+      
+  <Tabs.Screen
+  name="more"
+  options={{
+    title: "More",
+    tabBarIcon: ({ focused }) => (
+      <Image
+        source={imagepath.more}
+        style={{
+          width: 28,
+          height: 28,
+          tintColor: focused ? "blue" : "gray",
+        }}
+      />
+    ),
+  }}
+/>
     </Tabs>
   );
 }
