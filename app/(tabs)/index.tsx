@@ -1,13 +1,27 @@
+import Card from "@/src/components/ItemList";
 import imagepath from "@/src/constants/imagePath";
 import colors from "@/src/theme/colors";
 import { height, moderateScale, scale } from "@/src/theme/scaling";
 import { useState } from "react";
-import { Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Image, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+
+const data = [
+  { id: 1, title: "Books", image:imagepath.meatPng01 },
+  { id: 2, title: "Music", image:imagepath.meatPng01  },
+  { id: 3, title: "Sports", image:imagepath.meatPng01 },
+  { id: 4, title: "Sports", image:imagepath.meatPng01 },
+  { id: 5, title: "Sports", image:imagepath.meatPng01 },
+  { id: 6, title: "Sports", image:imagepath.meatPng01 },
+  { id: 7, title: "Sports", image:imagepath.meatPng01 },
+
+];
+
 
 export default function Tab() {
   const [search, setSearch] = useState("");
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.LIGHTTEXT }}>
+    <ScrollView>
       <View style={styles.container}>
         <Text style={styles.headText}>Michigan</Text>
         <Image style={styles.bucketIMG} source={imagepath.bucket} />
@@ -42,6 +56,13 @@ export default function Tab() {
     <View style={{backgroundColor:colors.WHITE, bottom:moderateScale(66),padding:5, }}>
         <Text style={styles.cateText}>Categories</Text>
       </View>
+
+       <View style={{ flexDirection: "row",alignSelf:"flex-start", flexWrap: "wrap",bottom:65 }}>
+      {data.map((item) => (
+        <Card key={item.id} image={item.image} title={item.title} />
+      ))}
+    </View>
+    </ScrollView>
     </SafeAreaView>
   );
 }

@@ -1,56 +1,37 @@
-// import { Link, Stack, useLocalSearchParams, useRouter } from 'expo-router';
-// import { StyleSheet, Text, View } from 'react-native';
-
-// export default function Details() {
-//   const router = useRouter();
-//   const params = useLocalSearchParams();
-
-//   return (
-//     <View style={styles.container}>
-//       <Stack.Screen
-//         options={{
-//           title: params.name,
-//         }}
-//       />
-//       <Text
-//         onPress={() => {
-//           router.setParams({ name: 'Updated' });
-//         }}>
-//         Update the title
-//       </Text>
-
-//             <Link href={{ pathname: '/(tabs)/settings', params: { name: 'Bacon' } }}>Go to tabs</Link>
-      
-//     </View>
-//   );
-// }
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-// });
-
-
-
 import CustomButton from "@/src/components/Button";
 import imagepath from "@/src/constants/imagePath";
 import colors from "@/src/theme/colors";
 import { moderateScale, scale } from "@/src/theme/scaling";
 import { router } from "expo-router";
-import { useState } from "react";
-import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { useRef, useState } from "react";
+import {
+  Image,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 export default function Tab() {
-    const [code, setCode] = useState(["", "", "", ""]);
+  const [code, setCode] = useState(["", "", "", ""]);
+  const inputs = useRef<TextInput[]>([]);
 
-    const handleChange = (value: string, index: number) => {
+  const handleChange = (value: string, index: number) => {
     let newCode = [...code];
     newCode[index] = value;
     setCode(newCode);
-    };
+
+    if (value && index < code.length - 1) {
+      // move to next input
+      inputs.current[index + 1]?.focus();
+    }
+
+    if (!value && index > 0) {
+      // if backspace, move to previous
+      inputs.current[index - 1]?.focus();
+    }
+  };
   return (
     <View style={styles.container}>
       <Image style={styles.logoPNG} source={imagepath.logo} />
@@ -78,6 +59,7 @@ export default function Tab() {
         {code.map((digit, index) => (
           <TextInput
             key={index}
+             ref={(ref) => (inputs.current[index] = ref!)} 
             style={styles.codeInput}
             keyboardType="number-pad"
             maxLength={1}
@@ -86,14 +68,18 @@ export default function Tab() {
           />
         ))}
       </View>
-<TouchableOpacity>
+      <TouchableOpacity>
         <Text style={styles.resend}>↻ Resend</Text>
       </TouchableOpacity>
       <View style={styles.googlebtn}>
         <CustomButton
           title="Next"
           color={colors.ACCENTRED}
-          onPress={() => router.push("/(tabs)/settings")}
+          onPress={() => {
+            const otp = code.join("");
+            console.log("OTP:", otp);
+            router.push("/");
+          }}
         />
       </View>
     </View>
@@ -115,7 +101,7 @@ const styles = StyleSheet.create({
     fontSize: scale(17),
     fontFamily: "DancingScript",
     fontWeight: "600",
-    color:colors.ACCENTRED
+    color: colors.ACCENTRED,
   },
   veriftText: {
     fontSize: scale(23),
@@ -165,14 +151,13 @@ const styles = StyleSheet.create({
     width: 40,
     padding: 5,
   },
-  googlebtn:{
-    width:moderateScale(320)
+  googlebtn: {
+    width: moderateScale(320),
   },
 
   resend: {
-    fontSize:scale(16),
-    color:colors.ACCENTRED,
-     marginTop:moderateScale(10)
+    fontSize: scale(16),
+    color: colors.ACCENTRED,
+    marginTop: moderateScale(10),
   },
-
-})
+});

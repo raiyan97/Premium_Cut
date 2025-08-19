@@ -8,7 +8,7 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  View,
+  View
 } from "react-native";
 
 export default function Home() {
@@ -22,7 +22,7 @@ export default function Home() {
     >
       <View style={styles.container}>
          <View style={styles.meatConatin}>
-        <Text style={styles.meatText}>SHOP YOUR POULTRY WITH MEATOMARKET</Text>     
+        <Text style={styles.meatText}>SHOP YOUR POULTRY WITH <Text style={{color:colors.DARKTEXT}}>MEATOMARKET</Text></Text>     
      </View>
     
      <View  style={styles.nequeConatin}>
@@ -31,6 +31,7 @@ export default function Home() {
       </View>
 
         <View style={styles.containImg}>
+      <View style={styles.halfContainer}></View>
           <View style={styles.leftside}></View>
           <View style={styles.rightside}></View>
           <View style={styles.onContainer}>
@@ -38,9 +39,7 @@ export default function Home() {
           </View>
           <View style={styles.quoteeConatiner}>
             <Image style={styles.quotes} source={imagepath.doubleQuotes} />
-          </View>
-
-          <View style={styles.textConatin}>
+             <View style={styles.textConatin}>
             <Text style={styles.describe}>
               Exquisite
               <Text style={styles.text}>
@@ -49,7 +48,8 @@ export default function Home() {
               </Text>
             </Text>
           </View>
-          <View style={styles.matterContain}>
+          </View>
+              <View style={styles.matterContain}>
             <Text style={styles.matterText}>
               {" "}
               Consectetur adipiscing elit,sed do tempor {"\n"} incididunt ut
@@ -59,17 +59,20 @@ export default function Home() {
               <Image style={styles.dbleImg} source={imagepath.double} />
             </View>
           </View>
-        </View>
-        <View style={styles.skipConatin}>
+      </View>
+       <View style={styles.skipConatin}>
           <TouchableOpacity onPress={() => router.push("/(auth)/signIn")}>
             <Text style={styles.skipText}>Skip</Text>
           </TouchableOpacity>
+        </View> 
         </View>
-      </View>
-    </SafeAreaView>
+       
+
+        {/* </View>  */}
+   </SafeAreaView>
   );
 }
-
+ 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -80,10 +83,11 @@ const styles = StyleSheet.create({
     alignItems: "flex-end",
     marginTop: moderateScale(70),
     paddingHorizontal: moderateScale(20),
-    backgroundColor: colors.LIGHTTEXT,
+    backgroundColor: colors.WHITE,
     height: height / 2,
     width: moderateScale(350),
     borderRadius: 10,
+   
   },
   meatConatin:{
  bottom:moderateScale(50),
@@ -144,6 +148,11 @@ const styles = StyleSheet.create({
     width: moderateScale(300),
     height: moderateScale(200),
     borderRadius: 10,
+     shadowColor:colors.DARKTEXT,
+    shadowOpacity:1,
+    shadowRadius:10,
+    shadowOffset:{width:0,height:3},
+    elevation:8
   },
   quoteeConatiner: {
     flexDirection: "row",
@@ -158,11 +167,12 @@ const styles = StyleSheet.create({
     width: moderateScale(17),
     height: moderateScale(15),
     tintColor: colors.PRIMARYRED,
+ right:moderateScale(10)
   },
   textConatin: {
     justifyContent: "center",
     alignSelf: "center",
-    bottom: moderateScale(40),
+    // bottom: moderateScale(40),
   },
   describe: {
     fontSize: scale(30),
@@ -174,7 +184,7 @@ const styles = StyleSheet.create({
     fontSize: scale(19),
   },
   matterText: {
-    fontSize: scale(14),
+    fontSize: scale(16),
     color: colors.DARKTEXT,
     fontFamily: "DancingScript",
     fontWeight: "500",
@@ -187,7 +197,7 @@ const styles = StyleSheet.create({
   },
   dobleContain: {
     alignSelf: "flex-end",
-    marginTop: moderateScale(29),
+    marginTop: moderateScale(9),
     left: moderateScale(20),
   },
 
@@ -199,7 +209,8 @@ const styles = StyleSheet.create({
   skipConatin: {
     justifyContent: "center",
     alignSelf: "center",
-    top: moderateScale(40),
+ top:moderateScale(50)
+
   },
   skipText: {
     fontSize: scale(16),
@@ -207,4 +218,17 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     color: colors.WHITE,
   },
+  halfContainer:{
+    backgroundColor:colors.LIGHTTEXT,
+    width:moderateScale(350),
+    height:moderateScale(182),
+    // borderRadius:40,
+    borderBottomLeftRadius:10,
+    borderBottomRightRadius:10,
+    position:"absolute",
+    top:0,
+    right:0,
+    left:0,
+    bottom:0
+  }
 });
