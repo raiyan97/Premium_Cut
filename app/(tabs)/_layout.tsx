@@ -1,65 +1,63 @@
-import imagepath from '@/src/constants/imagePath';
-import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { Tabs } from 'expo-router';
-import { Image } from 'react-native';
+import colors from "@/src/theme/colors";
+import { Ionicons } from "@expo/vector-icons";
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import { Tabs } from "expo-router";
 
-export default function TabLayout() {
+export default function RootLayout() {
   return (
-    <Tabs screenOptions={{ tabBarActiveTintColor: 'blue',headerShown:false }}>
+    <Tabs
+      screenOptions={{
+        headerShown: false,
+        tabBarActiveTintColor:colors.PRIMARYRED,
+        tabBarInactiveTintColor:colors.DARKTEXT,
+      }}
+    >
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <FontAwesome size={28} name="home" color={color} />,
+          title: "Home",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="home-outline" size={size} color={color} />
+          ),
         }}
       />
-      <Tabs.Screen
-        name="productList"
+       <Tabs.Screen
+        name="More"
         options={{
-          title: 'ProductList',
-          tabBarIcon: ({ color }) => <FontAwesome size={28} name="list" color={color} />,
+          title: "Product",
+          tabBarIcon: ({ color, size }) => (
+<Ionicons name="list-outline" size={24} color="black" />
+          ),
         }}
       />
         <Tabs.Screen
-  name="favourite"
-  options={{
-    title: "Favourite",
-    tabBarIcon: ({ focused }) => (
-      <Image
-        source={imagepath.favourite}
-        style={{
-          width: 28,
-          height: 28,
-          tintColor: focused ? "blue" : "gray",
-        }}
-      />
-    ),
-  }}
-/>
-       <Tabs.Screen
-        name="notification"
+        name="Favourite"
         options={{
-          title: 'Notifications',
-          tabBarIcon: ({ color }) => <FontAwesome size={28} name="bell" color={color} />,
+          title: "Wishlist",
+          tabBarIcon: ({ color, size }) => (
+<MaterialIcons name="favorite-border" size={24} color="black" />
+          ),
         }}
       />
-      
-  <Tabs.Screen
-  name="more"
-  options={{
-    title: "More",
-    tabBarIcon: ({ focused }) => (
-      <Image
-        source={imagepath.more}
-        style={{
-          width: 28,
-          height: 28,
-          tintColor: focused ? "blue" : "gray",
+     
+       <Tabs.Screen
+        name="Notifications"
+        options={{
+          title: "Notification",
+          tabBarIcon: ({ color, size }) => (
+<Ionicons name="notifications-outline" size={24} color="black" />
+          ),
         }}
       />
-    ),
-  }}
-/>
+       <Tabs.Screen
+        name="List"
+        options={{
+          title: "More",
+          tabBarIcon: ({ color, size }) => (
+           <MaterialIcons name="more-horiz" size={24} color="black" />
+          ),
+        }}
+      />
     </Tabs>
   );
 }

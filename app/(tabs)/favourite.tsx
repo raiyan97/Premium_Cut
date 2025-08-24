@@ -1,17 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native';
-
-export default function Favourite() {
-  return (
-    <View style={styles.container}>
-      <Text>Tab [Home|Settings]</Text> 
-    </View>
-  );
+import Favourite from "@/src/screens/Favourite"
+export default function Index(){
+    return <Favourite/>
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});

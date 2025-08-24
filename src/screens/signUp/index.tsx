@@ -1,35 +1,51 @@
 import CustomButton from "@/src/components/Button";
 import InputFill from "@/src/components/Input";
 import colors from "@/src/theme/colors";
-import { moderateScale, scale } from "@/src/theme/scaling";
+import { moderateScale } from "@/src/theme/scaling";
 import { router } from "expo-router";
 import React, { useState } from "react";
-import { SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { SafeAreaView, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import styles from "./style";
 
-type SignInProps = {
+type SignUpProps = {
   title?: string;
 };
 
-const SignIn: React.FC<SignInProps> = ({ title = "Sign In" }) => {
+const SignUp: React.FC<SignUpProps> = ({ title = "Sign Up" }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   return (
+    <ScrollView>
     <SafeAreaView
       style={{
         flex: 1,
         paddingHorizontal: moderateScale(30),
-        marginTop: moderateScale(70),
+        marginTop: moderateScale(40),
       }}
     >
       <View style={styles.container}>
         <Text style={styles.SignText}>{title}</Text>
         <Text style={styles.describe}>
-          To your<Text style={styles.meatText}> MeatOmarket</Text> account
+          To accees the freshest foods in<Text style={styles.meatText}> Mozambique</Text>
         </Text>
 
-        <View style={styles.inputFild}>
+ <View style={styles.inputFild}>
           <InputFill
-            title="PHONE/EMAIL"
+            title="PHONE"
+            value={email}
+            onChangeText={setEmail}
+            placeholder="+91___636278638"
+            keyboardType="phone-pad"
+            maxlength={10}
+            autoCapitilize="none"
+            autoCorrect={false}
+            returnKeyType="next"
+            textContentType="telephonenumber"
+          />
+        </View>
+    <View style={styles.inputFild}>
+          <InputFill
+            title="EMAIL(optional)"
             value={email}
             onChangeText={setEmail}
             placeholder="Enter your email"
@@ -46,18 +62,37 @@ const SignIn: React.FC<SignInProps> = ({ title = "Sign In" }) => {
             secureTextEntry
           />
         </View>
-        <Text style={styles.forgetText}>Forget Password?</Text>
+          <View style={styles.inputFild2}>
+          <InputFill
+            title="PASSWORD"
+            value={email}
+            onChangeText={setEmail}
+            placeholder="******************"
+            keyboardType="password"
+            secureTextEntry
+          />
+           <View style={styles.inputFild}>
+          <InputFill
+            title="REFERAL CODE (optional)"
+            value={email}
+            onChangeText={setEmail}
+            placeholder="MO-0101"
+            keyboardType="email-address"
+          />
+        </View>
+        </View>
         <View>
           <CustomButton
-            title="Login"
+            title="Sign Up"
             color={colors.HIGHLIGHTEDRED}
-            onPress={() => router.push("/(tabs)")}
+            onPress={() => router.push("/otp")}
           />
           <View style={styles.userConatin}>
            <TouchableOpacity onPress={()=> router.push("/(auth)/signUp")}>
             <Text style={styles.userText}>
-              New User? <Text style={styles.uptext}>Sign Up</Text>
+              By proceeding. you agree? 
             </Text>
+            <Text style={styles.uptext}>Privacy Policy</Text>
             </TouchableOpacity>
           </View>
           <View>
@@ -81,61 +116,9 @@ const SignIn: React.FC<SignInProps> = ({ title = "Sign In" }) => {
         </Link> */}
       </View>
     </SafeAreaView>
+    </ScrollView>
   );
 };
 
-export default SignIn;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignSelf: "flex-start",
-  },
-
-  SignText: {
-    fontSize: scale(30),
-    fontFamily: "DancingScript",
-    fontWeight: "700",
-    color: colors.ACCENTRED,
-  },
-  describe: {
-    fontSize: scale(23),
-    color: colors.DARKTEXT,
-    fontFamily: "DancingScript",
-    fontWeight: "600",
-  },
-  meatText: {
-    fontSize: scale(23),
-    color: colors.ACCENTRED,
-    fontFamily: "DancingScript",
-    fontWeight: "700",
-  },
-  inputFild: {
-    marginTop: moderateScale(50),
-  },
-  inputFild2: {
-    marginTop: moderateScale(30),
-  },
-  forgetText: {
-    fontSize: scale(14),
-    fontFamily: "DancingScript",
-    fontWeight: "600",
-    top: moderateScale(10),
-  },
-  googlebtn: {
-    bottom: moderateScale(40),
-  },
-  userConatin: {
-    top: moderateScale(26),
-  },
-  userText: {
-    fontSize: scale(15),
-    fontFamily: "DancingScript",
-    fontWeight: "600",
-    textAlign: "center",
-  },
-  uptext: {
-    fontSize: scale(16),
-    color: colors.ACCENTRED,
-  },
-});
+export default SignUp;

@@ -1,9 +1,14 @@
+import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-export default function ProductList() {
+type FavouriteProps = {
+  title?: string;
+};
+
+export default function Favourite({ title = "Default Text" }: FavouriteProps) {
   return (
     <View style={styles.container}>
-      <Text>Tab [Home|Settings]</Text> 
+      <Text style={styles.text}>{title}</Text>
     </View>
   );
 }
@@ -13,5 +18,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  text: {
+    fontSize: 18,
   },
 });

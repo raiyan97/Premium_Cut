@@ -28,17 +28,17 @@ export default function RootLayout() {
         headerStyle: {
         
         },
-        headerTintColor: "#fff",
+        headerTintColor:"#fff",
         headerTitleStyle: {
           fontWeight: "bold",
         },
       }}
     >
-      <Stack.Screen name="index" options={{ 
-        title: "Home"
+      <Stack.Screen name="OnBoarding" options={{ 
+        title: "landing"
         
         }} />
-      <Stack.Screen name="Tab" options={{ title: "Tab" }} />
+
     </Stack>
   );
 }
